@@ -4,13 +4,11 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:id="@+id/frag_test_texView"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/homework_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Assignment List Fragment!"
-        android:textSize="64dp"
-        android:gravity="center"
-        />
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="vertical" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

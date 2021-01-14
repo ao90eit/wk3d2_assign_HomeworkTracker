@@ -10,16 +10,24 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.aoinc.wk3d2_assign_homeworktracker.R;
+import com.aoinc.wk3d2_assign_homeworktracker.model.HomeworkItem;
+import com.aoinc.wk3d2_assign_homeworktracker.view.adapter.HomeworkItemAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class AssignmentListFragment extends Fragment {
 
-    @BindView(R.id.frag_test_texView)
-    TextView textView;
+    @BindView(R.id.homework_recyclerView)
+    RecyclerView homeworkRecyclerView;
+
+    HomeworkItemAdapter homeworkItemAdapter;
 
     @Nullable
     @Override
@@ -32,9 +40,12 @@ public class AssignmentListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         ButterKnife.bind(this, view);
+        homeworkItemAdapter = new HomeworkItemAdapter(new ArrayList<>());
+        homeworkRecyclerView.setAdapter(homeworkItemAdapter);
     }
 
-    public void displayText(String s) {
-        textView.setText(s);
+    public void displayList(List<HomeworkItem> assignments) {
+        homeworkItemAdapter.updateAssignments(assignments);
     }
+
 }

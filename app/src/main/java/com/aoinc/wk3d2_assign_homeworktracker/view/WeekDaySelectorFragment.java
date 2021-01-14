@@ -6,8 +6,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +21,7 @@ import com.google.android.material.tabs.TabLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnItemSelected;
 
 public class WeekDaySelectorFragment extends Fragment {
 
@@ -29,7 +32,8 @@ public class WeekDaySelectorFragment extends Fragment {
     TabLayout daysTabLayout;
 
     public interface WeekDaySelectorInterface {
-        public void updateAssignmentDisplay(int tabPosition);
+        public void updateSelectedWeek(int weekSelection);
+        public void updateSelectedDay(int tabPosition);
     }
     WeekDaySelectorInterface assignmentViewer;
 
@@ -55,11 +59,19 @@ public class WeekDaySelectorFragment extends Fragment {
                 R.layout.week_dropdown_list_item, R.id.week_item_textView, Constants.WEEK_NUMS));
         weekMenu.setText("1", false);
 
+        weekMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View arg1, int pos, long id) {
+                Toast.makeText(view.getContext(), String.valueOf(pos), Toast.LENGTH_SHORT).show();
+                assignmentViewer.updateSelectedWeek(pos + 1);
+            }
+        });
+
         daysTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                Log.d("on_tag_selected", tab.toString());
-                assignmentViewer.updateAssignmentDisplay(tab.getPosition());
+                assignmentViewer.updateSelectedDay(tab.getPosition() + 1);
             }
 
             @Override
