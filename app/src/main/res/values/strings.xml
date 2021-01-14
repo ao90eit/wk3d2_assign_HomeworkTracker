@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">wk3d2_assign_HomeworkTracker</string>
+    <string name="week_label">Week</string>
+    <string name="abbr_day_1">M</string>
+    <string name="abbr_day_2">T</string>
+    <string name="abbr_day_4">Th</string>
+    <string name="abbr_day_3">W</string>
+    <string name="abbr_day_5">F</string>
+    <string name="abbr_day_6_7">Sa/Su</string>
+</resources>
