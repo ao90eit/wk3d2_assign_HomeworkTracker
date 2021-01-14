@@ -60,10 +60,8 @@ public class WeekDaySelectorFragment extends Fragment {
         weekMenu.setText("1", false);
 
         weekMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
             @Override
             public void onItemClick(AdapterView<?> parent, View arg1, int pos, long id) {
-                Toast.makeText(view.getContext(), String.valueOf(pos), Toast.LENGTH_SHORT).show();
                 assignmentViewer.updateSelectedWeek(pos + 1);
             }
         });

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/add_header_textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="48dp"
+        android:text="@string/add_homework_header_text"/>
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/add_title_EditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Title"
+        app:layout_constraintTop_toBottomOf="@id/add_header_textView"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/add_subject_EditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Subject"
+        app:layout_constraintTop_toBottomOf="@id/add_title_EditText"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/add_description_EditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Description"
+        android:singleLine="false"
+        app:layout_constraintTop_toBottomOf="@id/add_subject_EditText"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/add_week_label_textView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Week"
+        app:layout_constraintBottom_toBottomOf="@+id/add_week_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/add_week_layout" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/add_week_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/add_description_EditText"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:accessibilityTraversalAfter="@id/add_week_label_textView" >
+
+        <AutoCompleteTextView
+            android:id="@+id/add_week_menu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="none"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            tools:text="1"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/add_day_label_textView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Week"
+        app:layout_constraintBottom_toBottomOf="@+id/add_day_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/add_day_layout" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/add_day_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/add_week_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:accessibilityTraversalAfter="@id/add_week_label_textView" >
+
+        <AutoCompleteTextView
+            android:id="@+id/add_day_menu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="none"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            tools:text="M"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+<Button
+    android:id="@+id/add_button"
+    android:layout_width="match_parent"
+    android:layout_height="52dp"
+    android:text="@string/add_button"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    android:imeOptions="actionDone"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

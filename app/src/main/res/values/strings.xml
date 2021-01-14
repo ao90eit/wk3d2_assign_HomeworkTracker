@@ -7,4 +7,6 @@
     <string name="abbr_day_3">W</string>
     <string name="abbr_day_5">F</string>
     <string name="abbr_day_6_7">Sa/Su</string>
+    <string name="add_homework_header_text">Add new homework</string>
+    <string name="add_button">Add</string>
 </resources>

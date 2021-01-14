@@ -5,6 +5,8 @@ import android.speech.tts.TextToSpeech;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,13 +23,21 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnCheckedChanged;
 
 public class AssignmentListFragment extends Fragment {
 
     @BindView(R.id.homework_recyclerView)
     RecyclerView homeworkRecyclerView;
 
+//    @BindView(R.id.homework_complete_checkBox)
+//    public CheckBox checkBox;
+
     HomeworkItemAdapter homeworkItemAdapter;
+
+//    public interface AssignmentListInterface {
+//        void updateHomeworkItem(HomeworkItem homeworkItem);
+//    }
 
     @Nullable
     @Override
@@ -47,5 +57,4 @@ public class AssignmentListFragment extends Fragment {
     public void displayList(List<HomeworkItem> assignments) {
         homeworkItemAdapter.updateAssignments(assignments);
     }
-
 }
