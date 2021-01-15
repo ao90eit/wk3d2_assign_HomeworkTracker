@@ -1,5 +1,6 @@
 package com.aoinc.wk3d2_assign_homeworktracker.view;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.aoinc.wk3d2_assign_homeworktracker.R;
 import com.aoinc.wk3d2_assign_homeworktracker.model.HomeworkItem;
 import com.aoinc.wk3d2_assign_homeworktracker.view.adapter.HomeworkItemAdapter;
+import com.aoinc.wk3d2_assign_homeworktracker.view.adapter.HomeworkItemAdapter.OnCheckChangedListenerI;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,19 +27,18 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
 
-public class AssignmentListFragment extends Fragment {
+public class AssignmentListFragment extends Fragment
+        implements OnCheckChangedListenerI {
 
     @BindView(R.id.homework_recyclerView)
     RecyclerView homeworkRecyclerView;
 
-//    @BindView(R.id.homework_complete_checkBox)
-//    public CheckBox checkBox;
+    private HomeworkItemAdapter homeworkItemAdapter;
+    private AssignmentListFragmentInterface mainView;
 
-    HomeworkItemAdapter homeworkItemAdapter;
-
-//    public interface AssignmentListInterface {
-//        void updateHomeworkItem(HomeworkItem homeworkItem);
-//    }
+    public interface AssignmentListFragmentInterface {
+        void updateHomeworkCompleted(HomeworkItem homeworkItem);
+    }
 
     @Nullable
     @Override
@@ -50,11 +51,24 @@ public class AssignmentListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         ButterKnife.bind(this, view);
-        homeworkItemAdapter = new HomeworkItemAdapter(new ArrayList<>());
+        homeworkItemAdapter = new HomeworkItemAdapter(new ArrayList<>(), this);
         homeworkRecyclerView.setAdapter(homeworkItemAdapter);
     }
 
     public void displayList(List<HomeworkItem> assignments) {
         homeworkItemAdapter.updateAssignments(assignments);
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        mainView = (AssignmentListFragmentInterface) context;
+    }
+
+    @Override
+    public void onCheckChanged(int position, boolean checked) {
+        HomeworkItem homeworkItem = ((AssignmentViewerActivity) mainView).homeworkItemList.get(position);
+        homeworkItem.setComplete(checked);
+        mainView.updateHomeworkCompleted(homeworkItem);
     }
 }

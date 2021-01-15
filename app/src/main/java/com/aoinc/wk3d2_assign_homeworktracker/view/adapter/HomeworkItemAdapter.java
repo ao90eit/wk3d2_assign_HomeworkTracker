@@ -1,5 +1,6 @@
 package com.aoinc.wk3d2_assign_homeworktracker.view.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import com.aoinc.wk3d2_assign_homeworktracker.model.HomeworkItem;
 
 import org.w3c.dom.Text;
 
+import java.lang.annotation.Annotation;
 import java.util.List;
 
 import butterknife.BindView;
@@ -25,8 +27,14 @@ public class HomeworkItemAdapter extends RecyclerView.Adapter<HomeworkItemAdapte
 
     private List<HomeworkItem> assignmentList;
 
-    public HomeworkItemAdapter(List<HomeworkItem> assignmentList) {
+    private OnCheckChangedListenerI onCheckChangedListenerI;
+    public interface OnCheckChangedListenerI {
+        void onCheckChanged(int position, boolean checked);
+    }
+
+    public HomeworkItemAdapter(List<HomeworkItem> assignmentList, OnCheckChangedListenerI onCheckChangedListenerI) {
         this.assignmentList = assignmentList;
+        this.onCheckChangedListenerI = onCheckChangedListenerI;
     }
 
     public void updateAssignments(List<HomeworkItem> homeworkItemList) {
@@ -39,7 +47,8 @@ public class HomeworkItemAdapter extends RecyclerView.Adapter<HomeworkItemAdapte
     public HomeworkViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new HomeworkViewHolder(
                 LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.homework_item_layout, parent, false));
+                .inflate(R.layout.homework_item_layout, parent, false),
+                onCheckChangedListenerI);
     }
 
     @Override
@@ -56,7 +65,7 @@ public class HomeworkItemAdapter extends RecyclerView.Adapter<HomeworkItemAdapte
         return assignmentList.size();
     }
 
-    class HomeworkViewHolder extends RecyclerView.ViewHolder {
+    class HomeworkViewHolder extends RecyclerView.ViewHolder implements CompoundButton.OnCheckedChangeListener {
 
         @BindView(R.id.homework_title_textView)
         TextView title;
@@ -67,14 +76,18 @@ public class HomeworkItemAdapter extends RecyclerView.Adapter<HomeworkItemAdapte
         @BindView(R.id.homework_complete_checkBox)
         CheckBox completed;
 
-        public HomeworkViewHolder(@NonNull View itemView) {
+        private OnCheckChangedListenerI onCheckChangedListenerI;
+
+        public HomeworkViewHolder(@NonNull View itemView, OnCheckChangedListenerI onCheckChangedListenerI) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            completed.setOnCheckedChangeListener(this);
+            this.onCheckChangedListenerI = onCheckChangedListenerI;
         }
 
-        @OnCheckedChanged(R.id.homework_complete_checkBox)
-        void onCheckChange(CompoundButton buttonView, boolean isChecked){
-            // ???
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            onCheckChangedListenerI.onCheckChanged(getLayoutPosition(), isChecked);
         }
     }
 }

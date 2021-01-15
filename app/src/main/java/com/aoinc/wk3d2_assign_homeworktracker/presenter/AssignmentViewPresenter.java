@@ -43,4 +43,16 @@ public class AssignmentViewPresenter implements AssignmentPresenterInterface {
             }
         }.start();
     }
+
+    @Override
+    public void updateAssignment(HomeworkItem updateAssignment) {
+        new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                homeworkDatabase.getHomeworkDAO().updateAssignments(updateAssignment);
+//                assignmentView.runListUpdate();
+            }
+        }.start();
+    }
 }

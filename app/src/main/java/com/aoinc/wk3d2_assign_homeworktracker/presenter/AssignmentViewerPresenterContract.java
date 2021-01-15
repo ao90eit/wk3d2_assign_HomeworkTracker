@@ -11,7 +11,7 @@ public interface AssignmentViewerPresenterContract {
         void getDaysAssignments(int week, int day);
 //        void deleteAssignment();
         void addAssignment(HomeworkItem addAssignment);
-//        void updateAssignment();
+        void updateAssignment(HomeworkItem updateAssignment);
     }
 
     public interface AssignmentViewInterface {

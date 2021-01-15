@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.aoinc.wk3d2_assign_homeworktracker.R;
@@ -11,9 +12,12 @@ import com.aoinc.wk3d2_assign_homeworktracker.model.HomeworkItem;
 import com.aoinc.wk3d2_assign_homeworktracker.presenter.AssignmentViewPresenter;
 import com.aoinc.wk3d2_assign_homeworktracker.presenter.AssignmentViewerPresenterContract.AssignmentViewInterface;
 import com.aoinc.wk3d2_assign_homeworktracker.view.AddHomeworkFragment.AddHomeworkInterface;
+import com.aoinc.wk3d2_assign_homeworktracker.view.AssignmentListFragment.AssignmentListFragmentInterface;
 import com.aoinc.wk3d2_assign_homeworktracker.view.WeekDaySelectorFragment.WeekDaySelectorInterface;
+import com.aoinc.wk3d2_assign_homeworktracker.view.adapter.HomeworkItemAdapter.OnCheckChangedListenerI;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -21,7 +25,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class AssignmentViewerActivity extends AppCompatActivity
-        implements AssignmentViewInterface, WeekDaySelectorInterface, AddHomeworkInterface {
+        implements AssignmentViewInterface, WeekDaySelectorInterface, AddHomeworkInterface, AssignmentListFragmentInterface {
 
     private int selectedDay = 1;
     private int selectedWeek = 1;
@@ -32,6 +36,8 @@ public class AssignmentViewerActivity extends AppCompatActivity
 
     @BindView(R.id.floating_add_button)
     FloatingActionButton floatingAddButton;
+
+    List<HomeworkItem> homeworkItemList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +82,7 @@ public class AssignmentViewerActivity extends AppCompatActivity
             @Override
             public void run() {
                 assignmentListFragment.displayList(assignmentList);
+                homeworkItemList = assignmentList;
             }
         });
     }
@@ -127,5 +134,11 @@ public class AssignmentViewerActivity extends AppCompatActivity
                 .commit();
 
         enableFloatingAddButton(false);
+    }
+
+    @Override
+    public void updateHomeworkCompleted(HomeworkItem homeworkItem) {
+        Log.d("TAG_X", "do checked update on " + homeworkItem.isComplete());
+        assignmentViewPresenter.updateAssignment(homeworkItem);
     }
 }
